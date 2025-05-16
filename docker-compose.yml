@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  mymongodb:
+    container_name: mymongodb
+    image: mongo:latest
+    volumes:
+      - ./dockersData:/data/db
+    ports:
+      - '27018:27017'
+
+  minserver:
+    container_name: minserver
+    image: minserver
+    restart: always
+    build: .
+    ports:
+      - "8002:8002"
+    links:
+      - mymongodb
+ #   environment:
+
+  # amit02:
+  #   build:
+  #     context: ./
+  #   ports:
+  #     - '8002:8002'
+  #   # - '9229:9229'
+  #   volumes:
+  #     - ./:/app
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #     - DEBUG=express:*
+  #   command:
+  #     - nodemon
+  #     # - --inspect=0.0.0.0:9229
+  #     - app.js
+  # # databaseservice
+  # # ...
+  # # front-end service
+  # ...
